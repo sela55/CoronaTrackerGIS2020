@@ -180,22 +180,24 @@ namespace CoronaTracker
                     string restResponse1 = response1.Content;
                     var jsonObject1 = JObject.Parse(response1.Content);
 
-                    deserialiseJSON(restResponse1);
-                    var Jcountries1 = JsonConvert.DeserializeObject<dynamic>(restResponse1);
+                    //deserialiseJSON(restResponse1);
+                    //var Jcountries1 = JsonConvert.DeserializeObject<dynamic>(restResponse1);
 
 
-                    TurnOnTheLabels(countryName);
+                    TurnOnTheLabels(countryName, jsonObject1);
 
                 }
             }
 
-            void TurnOnTheLabels(string countryName)
+            void TurnOnTheLabels(string countryName, JObject jsonObject1)
             {
-                string numOfSick = jsonObject.GetValue("total_cases").ToString();
+                JArray array = (JArray)jsonObject1["latest_stat_by_country"];
+                //string numOfSick = array.Value<string>("total_cases").ToString();
+                string numOfSick = array[0]["total_cases"].ToString();
                 numOfTotalConfirmedLabel.Text = numOfSick;
                 numOfTotalConfirmedLabel.IsVisible = true;
 
-                string numOfdeaths = jsonObject.GetValue("total_deaths").ToString();
+                string numOfdeaths = array[0]["total_deaths"].ToString();
                 numOfTotalConfirmedDeathsLabel.Text = numOfdeaths;
                 numOfTotalConfirmedDeathsLabel.IsVisible = true;
 
