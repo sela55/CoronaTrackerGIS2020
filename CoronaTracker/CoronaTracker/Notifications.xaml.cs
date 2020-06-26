@@ -14,9 +14,7 @@ namespace CoronaTracker
         {
             InitializeComponent();
 
-            //List<Countries> countries = new List<Countries>();
 
-            string strDebugOutput = null;
             var client = new RestClient("https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php");
             var request = new RestRequest(Method.GET);
             //request.RootElement = "country_name";
