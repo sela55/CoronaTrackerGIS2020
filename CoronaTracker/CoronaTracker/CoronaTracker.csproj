@@ -30,4 +30,9 @@
     <Folder Include="Resources\drawable\" />
     <Folder Include="values\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Resources\worldcities.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.coronatracker">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" package="com.companyname.coronatracker" android:versionName="1.1">
 	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="28" />
 	<application android:label="CoronaTracker.Android">
 		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAlEumjnaqordLtU6bRYy6iQmOpRE-UJSA" />
