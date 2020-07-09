@@ -33,25 +33,10 @@ namespace CoronaTracker
                 temp = temp.Trim('"');
                 this.lon = Double.Parse(temp);
                 string tempLat = lat.Trim('"');
+                lat.Trim('\r');
                 this.lat = Double.Parse(tempLat);
 
             }
-/*            public static details FromCsv(string csvLine)
-            {
-                //char t = '\'';
-                //csvLine.Trim(t);
-                string[] values = csvLine.Split(',');
-                //string values = csvLine;
-                //.Trim(t);
-                details detail = new details();
-                detail.country = Convert.ToString(values[4]);
-                //detail.lon = Convert.ToString(values[3]);
-                detail.lon = Double.Parse(values[3].Trim('\'','"'));
-                detail.lat = Double.Parse(values[2].Trim('\'','"'));
-                //detail.lat = Convert.ToString(values[2]);
-
-                return detail;
-            }*/
         }
         public Maps()
         {
@@ -59,143 +44,31 @@ namespace CoronaTracker
 
             IconImageSource = "maps.png";
             Title = "maps";
-            //var list = new List<details>();
-
-            // ...
-
-
-            //Geocoder geoCoder = new Geocoder();
-
-            //IEnumerable<Position> approximateLocations = geoCoder.GetPositionsForAddressAsync("Pacific Ave, San Francisco, California");
-            //Position position = approximateLocations.FirstOrDefault();
-            //string coordinates = $"{position.Latitude}, {position.Longitude}";
-
             var client = new RestClient("https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php");
             var request = new RestRequest(Method.GET);
-            //request.RootElement = "country_name";
             request.AddHeader("x-rapidapi-host", "coronavirus-monitor.p.rapidapi.com");
             request.AddHeader("x-rapidapi-key", "1e9bfb544dmsh018403b9672dd9ap1b7dfajsncc70eed878e3");
             IRestResponse response = client.Execute(request);
             string restResponse = response.Content;
             var jsonObject = JObject.Parse(response.Content);
-            //deserialiseJSON(restResponse);
             Jcountries = JsonConvert.DeserializeObject<dynamic>(restResponse);
 
             foreach (var state in Jcountries.countries_stat)
             {
 
                 countriesList.Add(state.country_name.ToString());
-                System.Console.WriteLine(state.country_name.ToString());
+
+
             }
 
-            //var PositionCommand = new Command(async () => await getPositionCommand2());
-
-            //getPositionCommand = new Command(async () => await OnGetPosition());
-
-            // the following API is meant for latitdude and longitude countries, later we will use them to drop pins in the map
-            ////////////////////
-            //Parallel.ForEach(countriesList, new ParallelOptions { MaxDegreeOfParallelism = 150 },
-            //state =>
-            //{
-            //    // logic
-            //    test2(state);
-            //});
-
-            /*  foreach (var state in countriesList)
-              {
-                  var client1 = new RestClient("https://opencage-geocoder.p.rapidapi.com/geocode/v1/json?language=en&key=fd7ac82c32be42289fe41e2c8a777861&q=" + state);
-                  var request1 = new RestRequest(Method.GET);
-                  request1.AddHeader("x-rapidapi-host", "opencage-geocoder.p.rapidapi.com");
-                  request1.AddHeader("x-rapidapi-key", "1e9bfb544dmsh018403b9672dd9ap1b7dfajsncc70eed878e3");
-                  IRestResponse response1 = client1.Execute(request1);
-
-                  //var client1 = new RestClient("https://geoapify-platform.p.rapidapi.com/v1/geocode/search?lang=en&lat=40.74&lon=-73.98&limit=1&apiKey=325e50d4bff6405289831fb983b4523c&text=" + state);
-                  //var request1 = new RestRequest(Method.GET);
-                  //request1.AddHeader("x-rapidapi-host", "geoapify-platform.p.rapidapi.com");
-                  //request1.AddHeader("x-rapidapi-key", "d3e375452c3f4121b36bc9bdbc52f186");
-                  //IRestResponse response1 = client.Execute(request1);
-
-                  string restResponse1 = response1.Content;
-                  var jsonObject1 = JObject.Parse(response1.Content);
-
-                  //deserialiseJSON(restResponse);
-                  var jCoords = JsonConvert.DeserializeObject<dynamic>(restResponse1);
-                  //System.Console.WriteLine("the geocoding for the state " + state + " are: \n" + jCoords.results[0].geometry);
-                  double lat = jCoords.results[0].geometry["lat"];
-                  double lon = jCoords.results[0].geometry["lng"];
-                  //Pin pin = new Pin
-                  //{
-                  //    Label = "1000",
-                  //    //Address = "The city with a boardwalk",
-                  //    Type = PinType.Place,
-                  //    Position = new Position(lat, lon)
-                  //};
-
-
-                  //map.MapElements.Add(circle);
-                  //map.Pins.Add(pin);
-
-                  Circle circle = new Circle
-                  {
-
-                      Center = new Position(lat, lon),
-                      Radius = new Distance(25000),
-                      StrokeColor = Color.FromHex("#88FF0000"),
-                      StrokeWidth = 8,
-                      FillColor = Color.FromHex("#88FFC0CB"),
-
-                  };
-                  map.MapElements.Add(circle);
-
-
-              }*/
-
+      
             List<Tuple<string, string>> countriesCoords = new List<Tuple<string, string>>();
 
 
-            ///////////////////
-
-
-            //Circle circle = new Circle
-            //{
-
-            //    Center = new Position(46.82, 8.23),
-            //    Radius = new Distance(25000),
-            //    StrokeColor = Color.FromHex("#88FF0000"),
-            //    StrokeWidth = 8,
-            //    FillColor = Color.FromHex("#88FFC0CB"),
-
-            //};
-
-
-
-            //Pin pin = new Pin
-            //{
-            //    Label = "1000",
-            //    //Address = "The city with a boardwalk",
-            //    Type = PinType.Place,
-            //    Position = new Position(46.82, 8.23)
-            //};
-
-
-            //map.MapElements.Add(circle);
-            //map.Pins.Add(pin);
-
-            //readFromCSVfile1();
-            //            List<details> values = File.ReadAllLines("/Users/sela/Desktop/CoronaTracker/CoronaTracker/CoronaTracker/Resources/worldcities.csv")
-            //                                         .Skip(1)
-            //                                       .Select(v => details.FromCsv(v))
-            //                                     .ToList();
             readFromCSVfile1();
-            Console.WriteLine(lonLatLocationInfo.Count);
+            //Console.WriteLine(lonLatLocationInfo.Count);
             foreach(var value in lonLatLocationInfo)
             {
-                //Console.WriteLine("longitute: " + value.lon + " lat:" + value.lat);
-                //double lat = Double.Parse(value.lat);
-                //double lon = Double.Parse(value.lon);
-
-                //double lat = 5.5;
-                //double lon = 3.5;
                 Circle circle = new Circle
                 {
 
@@ -238,7 +111,7 @@ namespace CoronaTracker
             double lat = jCoords.results[0].geometry["lat"];
             double lon = jCoords.results[0].geometry["lng"];
 
-            await Task.Run(async () =>
+            await Task.Run(() =>
             {
                 Device.BeginInvokeOnMainThread(() =>
            {
@@ -267,7 +140,6 @@ namespace CoronaTracker
             string restResponse1 = response1.Content;
             var jsonObject1 = JObject.Parse(response1.Content);
 
-            //deserialiseJSON(restResponse);
             var jCoords = JsonConvert.DeserializeObject<dynamic>(restResponse1);
             double lat = jCoords.results[0].geometry["lat"];
             double lon = jCoords.results[0].geometry["lng"];
@@ -287,66 +159,57 @@ namespace CoronaTracker
             map.MapElements.Add(circle);
 
         }
-        //async Task getPositionCommand2()
-        //{
-
-        //            foreach (var state in countriesList)
-        //            {
-        //                var client1 = new RestClient("https://opencage-geocoder.p.rapidapi.com/geocode/v1/json?language=en&key=fd7ac82c32be42289fe41e2c8a777861&q=" + state);
-        //        var request1 = new RestRequest(Method.GET);
-        //        request1.AddHeader("x-rapidapi-host", "opencage-geocoder.p.rapidapi.com");
-        //                request1.AddHeader("x-rapidapi-key", "1e9bfb544dmsh018403b9672dd9ap1b7dfajsncc70eed878e3");
-        //                IRestResponse response1 = client1.Execute(request1);
-        //        var result = response1;
-
-        //        string restResponse1 = response1.Content;
-        //        var jsonObject1 = JObject.Parse(response1.Content);
-
-        //        //deserialiseJSON(restResponse);
-        //        var jCoords = JsonConvert.DeserializeObject<dynamic>(restResponse1);
-        //        System.Console.WriteLine("the geocoding for the state " + state + " are: \n" + jCoords.results[0].geometry);
-
-        //            }
-        //}
-
+  
         public void readFromCSVfile1()
-        //{
-        //    List<details> values = File.ReadAllLines("/Users/sela/Desktop/CoronaTracker/CoronaTracker/CoronaTracker/Resources/worldcities.csv")
-        //                                   .Skip(1)
-        //                                   .Select(v => details.FromCsv(v))
-        //                                   .ToList();
-
+       
         {
 
-            //    return values;
-            string[] lines = System.IO.File.ReadAllLines("/Users/sela/Desktop/CoronaTracker/CoronaTracker/CoronaTracker/Resources/worldcities.csv");
-                string[] lines2 = System.IO.File.ReadAllLines("/Users/sela/Desktop/CoronaTracker/CoronaTracker/CoronaTracker/Resources/countries.csv");
-         /*   for (int i = 1; i < lines.Length; i++)
+           
+       
+            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(Maps)).Assembly;
+            Stream stream1 = assembly.GetManifestResourceStream("CoronaTracker.Resources.countries.csv");
+
+            string text1 = null;
+            using (var reader = new System.IO.StreamReader(stream1))
             {
-                string[] fields = lines[i].Split(',');
-                string countryName = fields[4].Trim('"');
-                if (countriesString.Contains(countryName))
-                {
-                    details detail = new details(fields[2], fields[3]);
-                    lonLatLocationInfo.Add(detail);
-                }
-
-                */
-            for (int i = 1; i<lines2.Length ; i++)
-            {
-                //string country = countriesString[i];
-
-                string[] fields = lines2[i].Split(',');
-
-                string countryName = fields[2].Trim('"');
-                if (countriesString.Contains(countryName))
-                {
-                    details detail = new details(fields[0], fields[1]);
-                    lonLatLocationInfo.Add(detail);
-                }
-                // System.Console.WriteLine(fields[2]);
-                // System.Console.WriteLine(fields[3]);
+                text1 = reader.ReadToEnd();
             }
+
+
+            List<string> ls = new List<string>();
+            ls.Add(text1.Replace('\n', ','));
+    
+            string[] fields = null;
+
+
+            fields = ls[0].Split(',');
+            
+
+            
+  
+
+            
+            for (int i = 1; i<fields.Length ; i++)
+            {
+        
+
+
+            }
+            string tempLat = "";
+            string tempLon = "";
+            for (int i = 0; i < fields.Length / 2; i = i + 2)
+            {
+                tempLat = fields[i];
+                tempLon = fields[i + 1];
+                
+                    
+                 details detail = new details(tempLat, tempLon);
+                 lonLatLocationInfo.Add(detail);
+                Console.WriteLine(fields[i]);
+            }
+   
+            
+ 
         }
 
         String[] countriesString = new String[] { "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegowina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic",

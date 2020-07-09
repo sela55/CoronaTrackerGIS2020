@@ -44,15 +44,17 @@ namespace CoronaTracker
 
 
             IconImageSource = "notifications.png";
-            Title = "notifications";
+            Title = "Direct Search";
 
             Picker countryPicker = new Picker()
             {
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Title = "Search for a Country",
-                TitleColor = Color.Red,
+                TitleColor = Color.Yellow,
                 ItemsSource = countriesList,
+                
+                
                 //SelectedItem = selectedCountry,
                 
 
@@ -201,20 +203,17 @@ namespace CoronaTracker
 
 
             }
+
+            OSAppTheme currentTheme = Application.Current.RequestedTheme;
+
+            if (currentTheme == OSAppTheme.Dark)
+            {
+                numOfTotalConfirmedLabel.TextColor = Color.Red;
+                numOfTotalConfirmedDeathsLabel.TextColor = Color.Red;
             }
+        }
 
         
-
-        //void OnPickerSelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    var picker = (Picker)sender;
-        //    int selectedIndex = picker.SelectedIndex;
-
-        //    if (selectedIndex != -1)
-        //    {
-        //        monkeyNameLabel.Text = (string)picker.ItemsSource[selectedIndex];
-        //    }
-        //}
     }
         
 
