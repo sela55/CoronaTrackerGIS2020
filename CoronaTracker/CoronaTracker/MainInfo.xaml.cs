@@ -9,6 +9,9 @@ namespace CoronaTracker
 {
     public partial class MainInfo : ContentPage
     {
+        Label outsiderNumOfDeaths;
+        private object numOfTotalConfirmedDeathsLabel;
+
         public MainInfo()
         {
             //DESIGN SECTION - I WROTE IT BY CODE AND NOT BY THE REGULAR METHOD VIA THE XAML OPTION.
@@ -63,8 +66,13 @@ namespace CoronaTracker
                 FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
                 FontAttributes = FontAttributes.Bold,
                 Text = "Total Confirmed",
-                TextColor = Color.Black
-            };
+                TextColor = Color.Black                
+
+        };
+
+            outsiderNumOfDeaths = numOfTotalConfirmedDeathsLabel;
+
+            //numOfTotalConfirmedDeathsLabel.SetAppThemeColor(Label.TextColorProperty, Color.Black, Color.Red);
 
             Label totalRecoveredLabel = new Label()
             {
@@ -100,6 +108,7 @@ namespace CoronaTracker
                   numOfTotalConfirmedDeathsLabel,
                   totalRecoveredLabel,
                   numOfTotalConfirmedRecoveredLabel
+         
                 },
             
           
@@ -122,10 +131,20 @@ namespace CoronaTracker
             string numOfRecovered = jsonObject.GetValue("total_recovered").ToString();
             numOfTotalConfirmedRecoveredLabel.Text = numOfRecovered;
 
+            OSAppTheme currentTheme = Application.Current.RequestedTheme;
+
+            if (currentTheme == OSAppTheme.Dark)
+            {
+                numOfTotalConfirmedDeathsLabel.TextColor = Color.Red;
+                numOfTotalConfirmedLabel.TextColor = Color.Red;
+
+            }
+         
 
 
         }
 
+        
     }
 }
         

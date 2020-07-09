@@ -31,8 +31,15 @@
     <Folder Include="values\" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Resources\worldcities.csv">
+    <None Remove="Resources\worldcities.csv" />
+    <None Remove="Resources\countries.csv" />
+    <None Remove="Resources\countries2.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\worldcities.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\countries.csv" />
+    <EmbeddedResource Include="Resources\countries2.csv" />
   </ItemGroup>
 </Project>
