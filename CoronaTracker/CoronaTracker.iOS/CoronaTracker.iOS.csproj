@@ -116,6 +116,8 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\launch_screen.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\launch_screen.imageset\launch_screen.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -161,5 +163,8 @@
     <BundleResource Include="Resources\maps.png" />
     <BundleResource Include="Resources\baseline_public_black_18dp.png" />
     <BundleResource Include="Resources\notifications.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\launch_screen.imageset\" />
   </ItemGroup>
 </Project>

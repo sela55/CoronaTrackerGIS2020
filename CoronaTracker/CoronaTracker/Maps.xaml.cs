@@ -231,7 +231,7 @@ namespace CoronaTracker
                         Pin pin = new Pin
                         {
                             Label = item.country_name.ToString(),
-                            Address = "Corona cases: " + item.cases.ToString(),
+                            Address = "Active corona cases: " + item.active_cases.ToString(),
                             Type = PinType.Place,
                             Position = new Position(detail.lat, detail.lon),
                         };

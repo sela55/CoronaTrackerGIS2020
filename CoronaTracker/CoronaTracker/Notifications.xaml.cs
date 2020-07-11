@@ -51,7 +51,7 @@ namespace CoronaTracker
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Title = "Search for a Country",
-                TitleColor = Color.Yellow,
+                TitleColor = Color.IndianRed,
                 ItemsSource = countriesList,
                 
                 
@@ -111,7 +111,7 @@ namespace CoronaTracker
             {
                 Children = {
                         new Label {
-                        Text = "here we will bulid the picker and also search label",
+                        Text = "search direct country",
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.CenterAndExpand
                         
